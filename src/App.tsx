@@ -1,11 +1,11 @@
 import { CssBaseline } from "@mui/material";
-import CollapsibleTable from "./ui/CollapsibleTable";
+import Layout from "./components/routes/Layout";
 
 const App = () => {
   return (
     <>
       <CssBaseline />
-      <CollapsibleTable />
+      <Layout />
     </>
   );
 };
