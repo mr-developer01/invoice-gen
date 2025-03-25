@@ -15,11 +15,11 @@ type Payment = {
   remaining: number;
 };
 type Invoice = {
-  id: string;
-  clientId: string;
-  date: string;
-  services: Service[];
-  payment: Payment;
+  id?: string;
+  clientId?: string;
+  date?: string;
+  services?: Service[];
+  payment?: Payment;
 };
 
 const initialState: Invoice[] = [];

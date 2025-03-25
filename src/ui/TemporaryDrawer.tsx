@@ -7,25 +7,23 @@ export default function TemporaryDrawer() {
   const [open] = React.useState(true);
 
   return (
-    <div>
-      <Drawer open={open} hideBackdrop elevation={4}>
-        <Stack direction={"column"} sx={{ px: 5, py: 3, alignItems: 'center' }}>
-          <Typography
-            variant="body2"
-            sx={{ textDecoration: "none", cursor: 'pointer' }}
-          >
-            Add Client
-          </Typography>
-          <Typography
-            variant="body2"
-            component={Link}
-            to={"/invoices"}
-            sx={{ textDecoration: "none", color: 'black' }}
-          >
-            Create invoice
-          </Typography>
-        </Stack>
-      </Drawer>
-    </div>
+    <Drawer open={open} hideBackdrop elevation={4} sx={{ width: "100%" }}>
+      <Stack direction={"column"} sx={{ px: 5, py: 3, alignItems: "center" }}>
+        <Typography
+          variant="body2"
+          sx={{ textDecoration: "none", cursor: "pointer" }}
+        >
+          Add Client
+        </Typography>
+        <Typography
+          variant="body2"
+          component={Link}
+          to={"/invoices"}
+          sx={{ textDecoration: "none", color: "black" }}
+        >
+          Create invoice
+        </Typography>
+      </Stack>
+    </Drawer>
   );
 }
