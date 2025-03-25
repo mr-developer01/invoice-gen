@@ -1,5 +1,5 @@
 import { CssBaseline } from "@mui/material";
-import Layout from "./components/routes/Layout";
+import Layout from "./components/router/Layout";
 
 const App = () => {
   return (

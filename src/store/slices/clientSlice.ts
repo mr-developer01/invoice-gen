@@ -1,37 +1,37 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from '../AppStrore'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "../AppStrore";
 
 // Define a type for the slice state
-export interface CounterState {
-  value: number
-}
+type Client = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+};
 
 // Define the initial state using that type
-const initialState: CounterState = {
-  value: 0
-}
+const initialState: Client[] = [];
 
-export const counterSlice = createSlice({
-  name: 'counter',
+export const clientSlice = createSlice({
+  name: "clients",
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    increment: state => {
-      state.value += 1
-    },
-    decrement: state => {
-      state.value -= 1
-    },
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload
-    }
-  }
-})
+    addClients: (state, action: PayloadAction<Client[]>) =>
+      (state = [...action.payload]),
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions
+    addClient: (state, action: PayloadAction<Client>) =>
+      (state = [...state, action.payload]),
+
+    removeClient: (state, action: PayloadAction<string>) =>
+      (state = state.filter((client) => client.id !== action.payload)),
+  },
+});
+
+export const { addClients, addClient, removeClient } = clientSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.counter.value
+export const selectClients = (state: RootState) => state.clients;
 
-export default counterSlice.reducer
+export default clientSlice.reducer;

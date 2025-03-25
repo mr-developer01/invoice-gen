@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router";
-import Navigate from "./Navigate";
+import Navigate from "./routes";
 
 const Layout = () => {
   return (
