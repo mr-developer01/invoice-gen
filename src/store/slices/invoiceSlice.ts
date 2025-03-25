@@ -29,7 +29,7 @@ export const invoiceSlice = createSlice({
   initialState,
   reducers: {
     addInvoices: (state, action: PayloadAction<Invoice[]>) =>
-      (state = [...action.payload]),
+      (state = action.payload),
   },
 });
 

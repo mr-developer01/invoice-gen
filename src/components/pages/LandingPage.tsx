@@ -13,8 +13,12 @@ const LandingPage = () => {
     dispatch(addClients(clientData));
     dispatch(addInvoices(invoiceData));
   }, [dispatch]);
-  
-  return <div>LandingPage</div>;
+
+  return (
+    <>
+      <h1>Landing Page</h1>
+    </>
+  );
 };
 
 export default LandingPage;
