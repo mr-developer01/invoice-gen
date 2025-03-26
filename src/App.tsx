@@ -1,12 +1,11 @@
-import { CssBaseline } from "@mui/material";
 import Layout from "./components/router/Layout";
+import { ThemeProviderContext } from "./components/theme/ThemeProvider";
 
 const App = () => {
   return (
-    <>
-      <CssBaseline />
+    <ThemeProviderContext>
       <Layout />
-    </>
+    </ThemeProviderContext>
   );
 };
 
