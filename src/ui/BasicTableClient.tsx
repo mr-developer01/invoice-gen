@@ -1,4 +1,3 @@
-import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -21,16 +20,19 @@ function createData(
 }
 
 export default function BasicTable() {
-  const clients = useAppSelector(selectClients)
-  
-  const row = clients.map((client) => {
-    return createData(client.name, client.email, client.phone, client.address, client.id)
-  })
-  
+  const clients = useAppSelector(selectClients);
 
-  const rows = [
-    ...row
-  ];
+  const row = clients.map((client) => {
+    return createData(
+      client.name,
+      client.email,
+      client.phone,
+      client.address,
+      client.id
+    );
+  });
+
+  const rows = [...row];
 
   return (
     <TableContainer
@@ -38,7 +40,7 @@ export default function BasicTable() {
       sx={{
         maxHeight: 248,
         "&::-webkit-scrollbar": { display: "none" },
-        "msOverflowStyle": "none",
+        msOverflowStyle: "none",
         "scrollbar-width": "none",
       }}
     >

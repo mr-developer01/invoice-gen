@@ -12,11 +12,11 @@ export const theme = (mode: "light" | "dark") =>
           main: mode === "light" ? "#BE5FD6" : "#E211E9",
         },
         background: {
-          default: mode === "light" ? "#a594f9" : "#121212",
-          paper: mode === "light" ? "#75749E" : "#1e1e1e",
+          default: mode === "light" ? "#5C7285" : "#121212",
+          paper: mode === "light" ? "#818C78" : "#1e1e1e",
         },
         text: {
-          primary: mode === "light" ? "#ffffff" : "#811212",
+          primary: mode === "light" ? "#ffffff" : "#fff",
           secondary: mode === "light" ? "#666666" : "#e0e0e0",
         },
       },

@@ -1,44 +1,38 @@
-import { BrowserRouter } from "react-router";
+import { BrowserRouter, Link } from "react-router";
 import Navigate from "./routes";
-import { Box, Button, Stack } from "@mui/material";
-import { useAppDispatch } from "../../store/hooks";
-import { setTheme } from "../../store/slices/toggleSlice";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import BasicSidebar from "../core/BasicSidebar";
 
 const Layout = () => {
-  const dispatch = useAppDispatch();
   return (
     <BrowserRouter>
       <Stack
         direction={{ md: "row" }}
         sx={{ minHeight: "100vh", display: "flex" }}
       >
-        <Stack
-          sx={{
-            flex: 1,
-            bgcolor: "background.default",
-            justifyContent: "space-between",
-            py: 4,
-            px: 2,
-          }}
-        >
-          <Stack spacing={3}>
-            <Button variant="contained">Add Client</Button>
-            <Button variant="contained">Create Invoice</Button>
-          </Stack>
-          <Stack>
-            <Button variant="outlined" onClick={() => dispatch(setTheme())}>
-              Change Theme
-            </Button>
-          </Stack>
-        </Stack>
+        <BasicSidebar />
         <Stack
           sx={{
             flex: 6,
             bgcolor: "background.paper",
           }}
         >
-          <Stack sx={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>Logo</Stack>
-          <Box sx={{ flex: 14, px: 4, py: 2}}>
+          <Stack
+            sx={{ flex: 1, alignItems: "center", justifyContent: "center", py:2 }}
+          >
+            <Box
+              component="img"
+              sx={{
+                height: 40,
+                width: 40,
+                borderRadius: '50%',
+                cursor: 'pointer'
+              }}
+              alt="The house from the offer."
+              src="https://www.pymnts.com/wp-content/uploads/2015/11/invoice.jpg"
+            />
+          </Stack>
+          <Box sx={{ flex: 14, px: 4, py: 2 }}>
             <Navigate />
           </Box>
         </Stack>

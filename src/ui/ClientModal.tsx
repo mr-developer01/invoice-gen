@@ -2,6 +2,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { selectClientModal, setClientModal } from '../store/slices/toggleSlice';
 
 const style = {
   position: 'absolute',
@@ -16,13 +18,14 @@ const style = {
 };
 
 export default function ClientModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleClose = () => setOpen(false);
+  const dispatch = useAppDispatch()
+  const handleClose = () => dispatch(setClientModal(false));
+  const open1 = useAppSelector(selectClientModal)
 
   return (
     <div>
       <Modal
-        open={open}
+        open={open1}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
