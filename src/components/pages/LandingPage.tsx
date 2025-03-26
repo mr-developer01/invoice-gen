@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import clientData from "../../../MOCK_DATA_CLIENT.json";
 import invoiceData from "../../../MOCK_DATA_INVOICES.json";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 import { addClients } from "../../store/slices/clientSlice";
-import { addInvoices, selectInvoices } from "../../store/slices/invoiceSlice";
+import { addInvoices } from "../../store/slices/invoiceSlice";
+import ClientTable from "../core/ClientTable";
+import { Box } from "@mui/material";
+import InvoiceTable from "../core/InvoiceTable";
 const LandingPage = () => {
   const dispatch = useAppDispatch();
-  const inv = useAppSelector(selectInvoices);
-  console.log("Slice invoice: ", inv);
 
   useEffect(() => {
     dispatch(addClients(clientData));
@@ -16,7 +17,10 @@ const LandingPage = () => {
 
   return (
     <>
-      <h1>Landing Page</h1>
+      <ClientTable />
+      <Box mt={4}>
+        <InvoiceTable />
+      </Box>
     </>
   );
 };
