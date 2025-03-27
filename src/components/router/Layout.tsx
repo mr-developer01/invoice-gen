@@ -2,10 +2,13 @@ import { useNavigate } from "react-router";
 import Navigate from "./routes";
 import { Box, Stack } from "@mui/material";
 import BasicSidebar from "../core/BasicSidebar";
+import SimpleSnackbar from "../../ui/SimpleSnackbar";
 
 const Layout = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
+    <>
+    <SimpleSnackbar />
       <Stack
         direction={{ md: "row" }}
         sx={{ minHeight: "100vh", display: "flex" }}
@@ -18,15 +21,20 @@ const Layout = () => {
           }}
         >
           <Stack
-            sx={{ flex: 1, alignItems: "center", justifyContent: "center", py:2 }}
+            sx={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              py: 2,
+            }}
           >
             <Box
               component="img"
               sx={{
                 height: 40,
                 width: 40,
-                borderRadius: '50%',
-                cursor: 'pointer'
+                borderRadius: "50%",
+                cursor: "pointer",
               }}
               alt="The house from the offer."
               src="https://www.pymnts.com/wp-content/uploads/2015/11/invoice.jpg"
@@ -38,6 +46,7 @@ const Layout = () => {
           </Box>
         </Stack>
       </Stack>
+    </>
   );
 };
 

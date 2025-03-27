@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { TextField, Button, Box, MenuItem } from "@mui/material";
 import { useAppDispatch } from "../../store/hooks";
 import { addClient } from "../../store/slices/clientSlice";
+import { setSnack, setSnackMsg } from "../../store/slices/toggleSlice";
 
 const validationSchema = Yup.object({
   id: Yup.string().required("ID is required"),
@@ -21,7 +22,7 @@ const CreateClientForm = () => {
     <Formik
       initialValues={{ id: "", name: "", email: "", phone: "", countryCode: "", address: "" }}
       validationSchema={validationSchema}
-      onSubmit={(values) => {
+      onSubmit={(values, { resetForm }) => {
         // console.log("Form Data:", values);
         const newUser = {
             id: values.id,
@@ -30,8 +31,10 @@ const CreateClientForm = () => {
             phone: values.countryCode + values.phone,
             address: values.address
         }
-        console.log(newUser)
+        dispatch(setSnack(true))
+        dispatch(setSnackMsg(`${values.name} thank you for choosing us!!`))
         dispatch(addClient(newUser))
+        resetForm()
       }}
     >
       {({ errors, touched, handleChange, handleBlur }) => (

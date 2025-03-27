@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../AppStrore";
 
+
 // Define a type for the slice state
 type Client = {
   id: string;
@@ -10,12 +11,11 @@ type Client = {
   address: string;
 };
 
-// Define the initial state using that type
+
 const initialState: Client[] = [];
 
 export const clientSlice = createSlice({
   name: "clients",
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
     addClients: (state, action: PayloadAction<Client[]>) =>
@@ -25,6 +25,7 @@ export const clientSlice = createSlice({
       const user = state.find((user) => action.payload.email === user.email);
       console.log(user);
       if (!user) {
+        
         return (state = [...state, action.payload]);
       }
     },

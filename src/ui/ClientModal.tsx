@@ -1,6 +1,4 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { selectClientModal, setClientModal } from '../store/slices/toggleSlice';
@@ -14,6 +12,7 @@ const style = {
   width: 400,
   bgcolor: 'background.paper',
   border: '1px solid #000',
+  borderRadius: "10px",
   boxShadow: 24,
   p: 4,
 };
