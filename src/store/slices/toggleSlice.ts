@@ -12,7 +12,7 @@ type TToggles = {
 const initialState: TToggles = {
   theme: "light",
   clientModal: false,
-  snack: true,
+  snack: false,
   snackMsg: "Default",
 };
 

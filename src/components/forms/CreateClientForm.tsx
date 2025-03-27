@@ -2,14 +2,20 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { TextField, Button, Box, MenuItem } from "@mui/material";
 import { useAppDispatch } from "../../store/hooks";
-import { addClient } from "../../store/slices/clientSlice";
-import { setSnack, setSnackMsg } from "../../store/slices/toggleSlice";
+import { addClient, setMessage } from "../../store/slices/updateClientSlice";
+import {
+  setClientModal,
+  setSnack,
+  setSnackMsg,
+} from "../../store/slices/toggleSlice";
 
 const validationSchema = Yup.object({
   id: Yup.string().required("ID is required"),
   name: Yup.string().required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  phone: Yup.number().typeError("Must be a number").required("Phone is required"),
+  phone: Yup.number()
+    .typeError("Must be a number")
+    .required("Phone is required"),
   countryCode: Yup.string().required("Country Code is required"),
   address: Yup.string().required("Address is required"),
 });
@@ -17,24 +23,34 @@ const validationSchema = Yup.object({
 const countryCodes = ["+1", "+91", "+44", "+61", "+81"];
 
 const CreateClientForm = () => {
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   return (
     <Formik
-      initialValues={{ id: "", name: "", email: "", phone: "", countryCode: "", address: "" }}
+      initialValues={{
+        id: "",
+        name: "",
+        email: "",
+        phone: "",
+        countryCode: "",
+        address: "",
+      }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
-        // console.log("Form Data:", values);
+        console.log("Form Data:", values);
         const newUser = {
-            id: values.id,
-            name: values.name,
-            email: values.email,
-            phone: values.countryCode + values.phone,
-            address: values.address
-        }
-        dispatch(setSnack(true))
-        dispatch(setSnackMsg(`${values.name} thank you for choosing us!!`))
-        dispatch(addClient(newUser))
-        resetForm()
+          id: values.id,
+          name: values.name,
+          email: values.email,
+          phone: values.countryCode + values.phone,
+          address: values.address,
+        };
+
+        dispatch(addClient(newUser));
+        dispatch(setSnack(true));
+        dispatch(setSnackMsg(`${values.name} thank you for choosing us!!`));
+        dispatch(setClientModal(false));
+        dispatch(setMessage());
+        resetForm();
       }}
     >
       {({ errors, touched, handleChange, handleBlur }) => (

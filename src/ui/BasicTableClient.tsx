@@ -6,8 +6,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import { useAppSelector } from "../store/hooks";
-import { selectClients } from "../store/slices/clientSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { removeClient, selectClients } from "../store/slices/updateClientSlice";
 
 function createData(
   name: string,
@@ -21,6 +21,7 @@ function createData(
 
 export default function BasicTable() {
   const clients = useAppSelector(selectClients);
+  const dispatch = useAppDispatch()
 
   const row = clients.map((client) => {
     return createData(
@@ -82,8 +83,9 @@ export default function BasicTable() {
                 <Typography
                   variant="body1"
                   sx={{ cursor: "pointer", color: "primary.main" }}
+                  onClick={() => dispatch(removeClient(row.id))}
                 >
-                  View
+                  remove
                 </Typography>
               </TableCell>
             </TableRow>
