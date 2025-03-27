@@ -1,11 +1,10 @@
 import { Button, Stack } from "@mui/material";
-import React from "react";
 import { useAppDispatch } from "../../store/hooks";
 import { setClientModal, setTheme } from "../../store/slices/toggleSlice";
 import { Link } from "react-router";
 
 const BasicSidebar = () => {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   return (
     <>
       <Stack
@@ -13,13 +12,22 @@ const BasicSidebar = () => {
           flex: 1,
           bgcolor: "background.default",
           justifyContent: "space-between",
-          py: 4,
+          py: {xs:1, md: 4},
           px: 2,
+          alignItems: "center"
         }}
+        direction={{ xs: "row", md: "column" }}
       >
-        <Stack spacing={3}>
-          <Button variant="contained" onClick={() => dispatch(setClientModal(true))}>Add Client</Button>
-          <Button variant="contained" LinkComponent={Link} to="/invoices">Create Invoice</Button>
+        <Stack spacing={3} direction={{ xs: "row", md: "column" }}>
+          <Button
+            variant="contained"
+            onClick={() => dispatch(setClientModal(true))}
+          >
+            Add Client
+          </Button>
+          <Button variant="contained" component={Link} to="/invoices">
+            Create Invoice
+          </Button>
         </Stack>
         <Stack>
           <Button variant="outlined" onClick={() => dispatch(setTheme())}>

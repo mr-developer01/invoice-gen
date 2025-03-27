@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../AppStrore";
 
 // Define a type for the slice state
-type Client = {
+export type Client = {
   id: string;
   name: string;
   email: string;
@@ -13,11 +13,13 @@ type Client = {
 type TClients = {
   clients: Client[] | [];
   message: boolean;
+  getClientById: Client[] | null;
 };
 
 const initialState: TClients = {
   clients: [],
   message: false,
+  getClientById: null,
 };
 
 export const clientSlice = createSlice({
@@ -38,6 +40,12 @@ export const clientSlice = createSlice({
       }
     },
 
+    getClient: (state, action: PayloadAction<string>) => {
+      state.getClientById = state.clients.filter((client) => {
+        return client.email === action.payload
+      })
+    },
+
     removeClient: (state, action: PayloadAction<string>) => {
       state.clients = state.clients.filter(
         (client) => client.id !== action.payload
@@ -45,17 +53,19 @@ export const clientSlice = createSlice({
     },
 
     setMessage: (state) => {
-        setTimeout(() => {
-            state.message = false;
-        }, 2000)
-    }
+      setTimeout(() => {
+        state.message = false;
+      }, 2000);
+    },
   },
 });
 
-export const { addClients, addClient, removeClient, setMessage } = clientSlice.actions;
+export const { addClients, addClient, getClient, removeClient, setMessage } =
+  clientSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectClients = (state: RootState) => state.client.clients;
 export const selectClientUpdateMsg = (state: RootState) => state.client.message;
+export const selectClient = (state: RootState) => state.client.getClientById;
 
 export default clientSlice.reducer;

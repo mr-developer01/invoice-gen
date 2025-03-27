@@ -3,12 +3,26 @@ import Navigate from "./routes";
 import { Box, Stack } from "@mui/material";
 import BasicSidebar from "../core/BasicSidebar";
 import SimpleSnackbar from "../../ui/SimpleSnackbar";
+import { useAppDispatch } from "../../store/hooks";
+import { useEffect } from "react";
+import { addClients } from "../../store/slices/updateClientSlice";
+import { addInvoices } from "../../store/slices/invoiceSlice";
+import clientData from "../../../MOCK_DATA_CLIENT.json";
+import invoiceData from "../../../MOCK_DATA_INVOICES.json";
 
 const Layout = () => {
   const navigate = useNavigate();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    // dispatch(addClients(clientData));
+    dispatch(addClients(clientData));
+    dispatch(addInvoices(invoiceData));
+  }, [dispatch]);
   return (
     <>
-    <SimpleSnackbar />
+      <SimpleSnackbar />
       <Stack
         direction={{ md: "row" }}
         sx={{ minHeight: "100vh", display: "flex" }}
