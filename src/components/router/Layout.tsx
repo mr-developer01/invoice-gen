@@ -1,11 +1,11 @@
-import { BrowserRouter, Link } from "react-router";
+import { useNavigate } from "react-router";
 import Navigate from "./routes";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import BasicSidebar from "../core/BasicSidebar";
 
 const Layout = () => {
+  const navigate = useNavigate()
   return (
-    <BrowserRouter>
       <Stack
         direction={{ md: "row" }}
         sx={{ minHeight: "100vh", display: "flex" }}
@@ -30,6 +30,7 @@ const Layout = () => {
               }}
               alt="The house from the offer."
               src="https://www.pymnts.com/wp-content/uploads/2015/11/invoice.jpg"
+              onClick={() => navigate("/")}
             />
           </Stack>
           <Box sx={{ flex: 14, px: 4, py: 2 }}>
@@ -37,7 +38,6 @@ const Layout = () => {
           </Box>
         </Stack>
       </Stack>
-    </BrowserRouter>
   );
 };
 

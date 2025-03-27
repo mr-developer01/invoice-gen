@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { selectClientModal, setClientModal } from '../store/slices/toggleSlice';
+import CreateClientForm from '../components/forms/CreateClientForm';
 
 const style = {
   position: 'absolute',
@@ -12,7 +13,7 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 400,
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '1px solid #000',
   boxShadow: 24,
   p: 4,
 };
@@ -23,7 +24,7 @@ export default function ClientModal() {
   const open1 = useAppSelector(selectClientModal)
 
   return (
-    <div>
+    <>
       <Modal
         open={open1}
         onClose={handleClose}
@@ -31,14 +32,9 @@ export default function ClientModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <CreateClientForm />
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }

@@ -21,8 +21,13 @@ export const clientSlice = createSlice({
     addClients: (state, action: PayloadAction<Client[]>) =>
       (state = [...action.payload]),
 
-    addClient: (state, action: PayloadAction<Client>) =>
-      (state = [...state, action.payload]),
+    addClient: (state, action: PayloadAction<Client>) => {
+      const user = state.find((user) => action.payload.email === user.email);
+      console.log(user);
+      if (!user) {
+        return (state = [...state, action.payload]);
+      }
+    },
 
     removeClient: (state, action: PayloadAction<string>) =>
       (state = state.filter((client) => client.id !== action.payload)),
