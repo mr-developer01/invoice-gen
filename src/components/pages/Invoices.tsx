@@ -7,28 +7,34 @@ import AddPayment from "../core/AddPayment";
 
 const Invoices = () => {
   const searchedClient = useAppSelector(selectClient);
-  console.log(searchedClient)
+  console.log(searchedClient);
   return (
     <>
       <SearchUserByEmail />
-      {searchedClient && (
+      {searchedClient && searchedClient.length !== 0 ? (
         <Typography mt={2}>
           Add Services / Payment for : {searchedClient[0]?.name}
         </Typography>
+      ) : (
+        <Typography mt={2}>
+          No Client is available...
+        </Typography>
       )}
-      <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={5}
-        sx={{
-          width: "100%",
-          alignItems: "start",
-          justifyContent: "center",
-          mt: 6,
-        }}
-      >
-        <AddService />
-        <AddPayment />
-      </Stack>
+      {searchedClient && searchedClient.length !== 0 && (
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          spacing={5}
+          sx={{
+            width: "100%",
+            alignItems: "start",
+            justifyContent: "center",
+            mt: 6,
+          }}
+        >
+          <AddService />
+          <AddPayment />
+        </Stack>
+      )}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
-import AddServiceData from "../forms/AddServiceData";
+import AddServiceDetail from "../forms/AddServiceDetail";
 
 const AddService = () => {
   const [toggle, setToggle] = useState(true);
@@ -24,7 +24,7 @@ const AddService = () => {
           <AddIcon sx={{ fontSize: "70px" }} />
         </Stack>
       ) : (
-        <AddServiceData />
+        <AddServiceDetail setToggle={setToggle}/>
       )}
     </Stack>
   );

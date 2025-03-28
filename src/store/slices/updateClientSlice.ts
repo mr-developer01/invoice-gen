@@ -27,7 +27,7 @@ export const clientSlice = createSlice({
   initialState,
   reducers: {
     addClients: (state, action: PayloadAction<Client[] | []>) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.clients = [...action.payload];
     },
     addClient: (state, action: PayloadAction<Client>) => {

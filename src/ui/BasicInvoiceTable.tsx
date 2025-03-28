@@ -22,6 +22,7 @@ function createData(
 
 export default function BasicInvoiceTable() {
   const invoices = useAppSelector(selectInvoices);
+  // console.log(invoices, "Basic Invoice Table")
 
   const row = invoices.map((client) => {
     return createData(

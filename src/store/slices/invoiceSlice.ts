@@ -14,12 +14,13 @@ type Payment = {
   totalAmount: number;
   remaining: number;
 };
+
 type Invoice = {
   id?: string;
   clientId?: string;
   date?: string;
-  services?: Service[];
   payment?: Payment;
+  services?: Service[];
 };
 
 const initialState: Invoice[] = [];
@@ -28,8 +29,9 @@ export const invoiceSlice = createSlice({
   name: "invoices",
   initialState,
   reducers: {
-    addInvoices: (state, action: PayloadAction<Invoice[]>) =>
-      (state = [...action.payload]),
+    addInvoices: (state, action: PayloadAction<Invoice[]>) => {
+      return state = [...action.payload];
+    },
   },
 });
 

@@ -15,8 +15,9 @@ const Layout = () => {
 
   const dispatch = useAppDispatch();
 
+  // console.log(invoiceData, "Invoices")
+
   useEffect(() => {
-    // dispatch(addClients(clientData));
     dispatch(addClients(clientData));
     dispatch(addInvoices(invoiceData));
   }, [dispatch]);
