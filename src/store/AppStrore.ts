@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ClientReducers from "./slices/clientSlice"
-import InvoiceReducer from "./slices/invoiceSlice"
+import UpdateClientReducers from "./slices/updateClientSlice";
+import InvoiceReducer from "./slices/invoiceSlice";
+import ToggleReducer from "./slices/toggleSlice";
 // ...
 
 export const store = configureStore({
   reducer: {
-    clients: ClientReducers,
-    invoices: InvoiceReducer
+    client: UpdateClientReducers,
+    invoices: InvoiceReducer,
+    toggle: ToggleReducer,
   },
 });
 

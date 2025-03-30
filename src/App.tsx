@@ -1,11 +1,21 @@
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import Layout from "./components/router/Layout";
-import { ThemeProviderContext } from "./components/theme/ThemeProvider";
+import { theme } from "./theme";
+import { useAppSelector } from "./store/hooks";
+import { selectTheme } from "./store/slices/toggleSlice";
+import ClientModal from "./ui/ClientModal";
+import { BrowserRouter } from "react-router";
 
 const App = () => {
+  const appTheme = useAppSelector(selectTheme);
   return (
-    <ThemeProviderContext>
-      <Layout />
-    </ThemeProviderContext>
+    <ThemeProvider theme={theme(appTheme)}>
+      <BrowserRouter>
+        <CssBaseline />
+        <ClientModal />
+        <Layout />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 
