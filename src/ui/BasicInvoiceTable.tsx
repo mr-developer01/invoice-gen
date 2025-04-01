@@ -24,16 +24,18 @@ export default function BasicInvoiceTable() {
   const invoices = useAppSelector(selectInvoices);
   // console.log(invoices, "Basic Invoice Table")
 
-  const row = invoices.map((client) => {
-    return createData(
-      client?.date,
-      client?.clientId,
-      client?.id,
-      client?.payment?.totalAmount,
-      client?.payment?.remaining,
-      client?.services[0]?.description
-    );
-  });
+  const row = invoices
+    .filter((client) => client.date !== "")
+    .map((client) => {
+      return createData(
+        client?.date,
+        client?.clientId,
+        client?.id,
+        client?.payment?.totalAmount,
+        client?.payment?.remaining,
+        client?.services[0]?.description
+      );
+    });
 
   const rows = [...row];
 

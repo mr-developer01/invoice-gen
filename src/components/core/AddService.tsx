@@ -3,7 +3,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import AddServiceDetail from "../forms/AddServiceDetail";
 
-const AddService = ({id: string}) => {
+const AddService = () => {
   const [toggle, setToggle] = useState(true);
   return (
     <Stack sx={{ alignItems: "center" }}>
@@ -24,7 +24,7 @@ const AddService = ({id: string}) => {
           <AddIcon sx={{ fontSize: "70px" }} />
         </Stack>
       ) : (
-        <AddServiceDetail id={id} setToggle={setToggle}/>
+        <AddServiceDetail setToggle={setToggle}/>
       )}
     </Stack>
   );

@@ -8,6 +8,7 @@ import {
   setSnack,
   setSnackMsg,
 } from "../../store/slices/toggleSlice";
+import { addNewService } from "../../store/slices/invoiceSlice";
 
 const validationSchema = Yup.object({
   id: Yup.string().required("ID is required"),
@@ -36,12 +37,11 @@ const CreateClientForm = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
-        console.log("Form Data:", values);
         const newUser = {
           id: values.id,
           name: values.name,
           email: values.email,
-          phone: values.countryCode + values.phone,
+          phone: values.countryCode + " " + values.phone,
           address: values.address,
         };
 
@@ -50,6 +50,29 @@ const CreateClientForm = () => {
         dispatch(setSnackMsg(`${values.name} thank you for choosing us!!`));
         dispatch(setClientModal(false));
         dispatch(setMessage());
+
+        const invoice = [
+          {
+            id: "inv4",
+            clientId: values.id,
+            date: "",
+            services: [
+              {
+                description: "",
+                rate: 0,
+                currency: "",
+                time: "",
+              },
+            ],
+            payment: {
+              isPaid: false,
+              amountPaid: 0,
+              totalAmount: 0,
+              remaining: 0,
+            },
+          },
+        ];
+        dispatch(addNewService(invoice));
         resetForm();
       }}
     >

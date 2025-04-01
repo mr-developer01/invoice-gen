@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { removeClient, selectClients } from "../store/slices/updateClientSlice";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 function createData(
   name: string,
@@ -63,7 +64,7 @@ export default function BasicTable() {
               Address
             </TableCell>
             <TableCell padding="none" align="center">
-              More Detail
+              Remove
             </TableCell>
           </TableRow>
         </TableHead>
@@ -85,7 +86,7 @@ export default function BasicTable() {
                   sx={{ cursor: "pointer", color: "primary.main" }}
                   onClick={() => dispatch(removeClient(row.id))}
                 >
-                  remove
+                  <DeleteOutlineIcon />
                 </Typography>
               </TableCell>
             </TableRow>

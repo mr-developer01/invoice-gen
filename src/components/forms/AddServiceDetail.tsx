@@ -2,10 +2,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, MenuItem, Button, Box, Stack } from "@mui/material";
 import { useAppDispatch } from "../../store/hooks";
-import { addInvoices, addNewService } from "../../store/slices/invoiceSlice";
+import { addNewService } from "../../store/slices/invoiceSlice";
 
 type TProps = {
-  id: string;
   setToggle: (arg: boolean) => void;
 };
 
@@ -21,7 +20,7 @@ const validationSchema = Yup.object({
   time: Yup.date().typeError("Invalid date").required("Time is required"),
 });
 
-const AddServiceDetail = ({ id, setToggle }: TProps) => {
+const AddServiceDetail = ({ setToggle }: TProps) => {
   const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues: {
@@ -33,27 +32,38 @@ const AddServiceDetail = ({ id, setToggle }: TProps) => {
     validationSchema,
     onSubmit: (values) => {
       console.log("Form values: Rahul", values);
-      const invoice = {
-        id: "inv4",
-        clientId: id,
-        date: values.time,
-        services: [
-          {
-            description: values.description,
-            rate: Number(values.rate),
-            currency: values.currency,
-            time: values.time,
-          },
-        ],
-        payment: {
-          isPaid: false,
-          amountPaid: 0,
-          totalAmount: 0,
-          remaining: 0,
+      // const invoice = {
+      //   id: "inv4",
+      //   clientId: "id",
+      //   date: values.time,
+      //   services: [
+      //     {
+      //       description: values.description,
+      //       rate: Number(values.rate),
+      //       currency: values.currency,
+      //       time: values.time,
+      //     },
+      //   ],
+      //   payment: {
+      //     isPaid: false,
+      //     amountPaid: 0,
+      //     totalAmount: 0,
+      //     remaining: 0,
+      //   },
+      // };
+
+      const services = [
+        {
+          description: values.description,
+          rate: Number(values.rate),
+          currency: values.currency,
+          time: values.time,
         },
-      };
-      console.log("Invoice Data:", invoice);
-      dispatch(addNewService([invoice]))
+      ];
+
+      console.log("Invoice Data:", services);
+      // dispatch(addNewService([invoice]));
+      setToggle(true);
     },
   });
 
