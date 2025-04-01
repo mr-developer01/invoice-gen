@@ -5,7 +5,7 @@ type Service = {
   description: string;
   rate: number;
   time: string;
-  currency: "$" | "₹";
+  currency: string;
 };
 
 type Payment = {
@@ -32,10 +32,13 @@ export const invoiceSlice = createSlice({
     addInvoices: (state, action: PayloadAction<Invoice[]>) => {
       return state = [...action.payload];
     },
+    addNewService: (state, action: PayloadAction<Invoice[]>) => {
+      return state = [...state, ...action.payload];
+    }
   },
 });
 
-export const { addInvoices } = invoiceSlice.actions;
+export const { addInvoices, addNewService } = invoiceSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectInvoices = (state: RootState) => state.invoices;

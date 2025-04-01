@@ -7,6 +7,7 @@ type TToggles = {
   clientModal: boolean;
   snack: boolean;
   snackMsg: string,
+  invoice: boolean
 };
 
 const initialState: TToggles = {
@@ -14,6 +15,7 @@ const initialState: TToggles = {
   clientModal: false,
   snack: false,
   snackMsg: "Default",
+  invoice: false
 };
 
 export const toggleSlice = createSlice({
@@ -32,15 +34,19 @@ export const toggleSlice = createSlice({
     setSnackMsg: (state, action: PayloadAction<string>) => {
       state.snackMsg = action.payload;
     },
+    setInvoice: (state, action: PayloadAction<boolean>) => {
+      state.invoice = action.payload
+    }
   },
 });
 
-export const { setTheme, setClientModal, setSnack, setSnackMsg } = toggleSlice.actions;
+export const { setTheme, setClientModal, setSnack, setSnackMsg, setInvoice } = toggleSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectTheme = (state: RootState) => state.toggle.theme;
 export const selectClientModal = (state: RootState) => state.toggle.clientModal;
 export const selectSnack = (state: RootState) => state.toggle.snack;
 export const selectSnackMsg = (state: RootState) => state.toggle.snackMsg;
+export const selectInvoice = (state: RootState) => state.toggle.invoice;
 
 export default toggleSlice.reducer;

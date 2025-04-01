@@ -1,23 +1,28 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, MenuItem, Button, Box, Stack } from "@mui/material";
+import { useAppDispatch } from "../../store/hooks";
+import { addInvoices, addNewService } from "../../store/slices/invoiceSlice";
 
 type TProps = {
-  setToggle: (arg: boolean) => void
-}
+  id: string;
+  setToggle: (arg: boolean) => void;
+};
 
 const validationSchema = Yup.object({
   description: Yup.string().required("Description is required"),
   rate: Yup.number()
     .typeError("Rate must be a number")
-    .required("Rate is required").min(100),
+    .required("Rate is required")
+    .min(100),
   currency: Yup.string()
     .oneOf(["$", "₹"], "Invalid currency")
     .required("Currency is required"),
   time: Yup.date().typeError("Invalid date").required("Time is required"),
 });
 
-const AddServiceDetail = ({ setToggle }: TProps) => {
+const AddServiceDetail = ({ id, setToggle }: TProps) => {
+  const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues: {
       description: "",
@@ -27,7 +32,28 @@ const AddServiceDetail = ({ setToggle }: TProps) => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("Form values:", values);
+      console.log("Form values: Rahul", values);
+      const invoice = {
+        id: "inv4",
+        clientId: id,
+        date: values.time,
+        services: [
+          {
+            description: values.description,
+            rate: Number(values.rate),
+            currency: values.currency,
+            time: values.time,
+          },
+        ],
+        payment: {
+          isPaid: false,
+          amountPaid: 0,
+          totalAmount: 0,
+          remaining: 0,
+        },
+      };
+      console.log("Invoice Data:", invoice);
+      dispatch(addNewService([invoice]))
     },
   });
 

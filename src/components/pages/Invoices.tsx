@@ -31,7 +31,7 @@ const Invoices = () => {
             mt: 6,
           }}
         >
-          <AddService />
+          <AddService id={searchedClient[0].id} />
           <AddPayment />
         </Stack>
       )}

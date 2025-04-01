@@ -1,7 +1,22 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { TextField, Button, Box, Stack, FormControlLabel, Checkbox } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Stack,
+  FormControlLabel,
+  Checkbox,
+  Typography,
+} from "@mui/material";
 import { calculateGST } from "../../hooks/useGst";
+import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { selectInvoice, setInvoice } from "../../store/slices/toggleSlice";
+
+type TPaymentForm = {
+  setToggle: (arg: boolean) => void;
+};
 
 const validationSchema = Yup.object({
   amountPaid: Yup.number().required("Amount Paid is required"),
@@ -9,7 +24,12 @@ const validationSchema = Yup.object({
   isPaid: Yup.boolean().required("Payment status is required"),
 });
 
-const PaymentForm = ({ setToggle }) => {
+const PaymentForm = ({ setToggle }: TPaymentForm) => {
+  const invoice = useAppSelector(selectInvoice);
+  console.log("Invoice:", invoice);
+  const dispatch = useAppDispatch();
+  const [gst, setGst] = useState(0);
+  const [finalCharge, setFinalCharge] = useState(0);
   const formik = useFormik({
     initialValues: {
       amountPaid: "",
@@ -19,24 +39,38 @@ const PaymentForm = ({ setToggle }) => {
     validationSchema,
     onSubmit: (values) => {
       console.log("Form values:", values);
-      const gst = calculateGST(500)
-      console.log(gst)
+      console.log("Gst:", gst);
+      console.log("Final Charge:", finalCharge);
+      dispatch(setInvoice(true))
     },
   });
 
   return (
-    <Box sx={{ maxWidth: 400, mx: "auto" }}>
+    <Box sx={{ maxWidth: 400, mx: "auto"}}>
       <form onSubmit={formik.handleSubmit}>
-      <TextField
+        <TextField
           fullWidth
           margin="normal"
           label="Total Amount"
           name="totalAmount"
           type="number"
           value={formik.values.totalAmount}
-          onChange={formik.handleChange}
+          onChange={(e) => {
+            formik.handleChange(e);
+            const total = Number(e.target.value);
+            if (!isNaN(total) && total > 0) {
+              const { gstAmount, finalAmount } = calculateGST(total);
+              setGst(gstAmount);
+              setFinalCharge(finalAmount);
+            } else {
+              setGst(0);
+              setFinalCharge(0);
+            }
+          }}
           onBlur={formik.handleBlur}
-          error={formik.touched.totalAmount && Boolean(formik.errors.totalAmount)}
+          error={
+            formik.touched.totalAmount && Boolean(formik.errors.totalAmount)
+          }
           helperText={formik.touched.totalAmount && formik.errors.totalAmount}
         />
 
@@ -52,6 +86,9 @@ const PaymentForm = ({ setToggle }) => {
           error={formik.touched.amountPaid && Boolean(formik.errors.amountPaid)}
           helperText={formik.touched.amountPaid && formik.errors.amountPaid}
         />
+
+        <Typography gutterBottom>Gst Charge: {gst}</Typography>
+        <Typography>Final Amount: {finalCharge}</Typography>
 
         <FormControlLabel
           control={
