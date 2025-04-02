@@ -3,7 +3,11 @@ import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import PaymentForm from "../forms/PaymentForm";
 
-const AddPayment = () => {
+type TId = {
+  id: string
+}
+
+const AddPayment = ({id}: TId) => {
   const [toggle, setToggle] = useState(true);
   return (
     <Stack sx={{ alignItems: "center" }}>
@@ -25,7 +29,7 @@ const AddPayment = () => {
         </Stack>
       )}
       {
-        !toggle && <PaymentForm setToggle={setToggle} />
+        !toggle && <PaymentForm id={id} setToggle={setToggle} />
       }
     </Stack>
   );

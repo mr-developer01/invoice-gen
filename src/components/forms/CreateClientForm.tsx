@@ -8,7 +8,8 @@ import {
   setSnack,
   setSnackMsg,
 } from "../../store/slices/toggleSlice";
-import { addNewService } from "../../store/slices/invoiceSlice";
+import { addNewInvoice } from "../../store/slices/invoiceSlice";
+import { getDate } from "../../utils/getDate";
 
 const validationSchema = Yup.object({
   id: Yup.string().required("ID is required"),
@@ -55,14 +56,14 @@ const CreateClientForm = () => {
           {
             id: "inv4",
             clientId: values.id,
-            date: "",
+            date: getDate(),
             services: [
-              {
-                description: "",
-                rate: 0,
-                currency: "",
-                time: "",
-              },
+              // {
+              //   description: "",
+              //   rate: 0,
+              //   currency: "",
+              //   time: "",
+              // },
             ],
             payment: {
               isPaid: false,
@@ -72,7 +73,7 @@ const CreateClientForm = () => {
             },
           },
         ];
-        dispatch(addNewService(invoice));
+        dispatch(addNewInvoice(invoice));
         resetForm();
       }}
     >

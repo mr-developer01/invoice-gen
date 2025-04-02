@@ -10,11 +10,14 @@ import {
   Typography,
 } from "@mui/material";
 import { calculateGST } from "../../hooks/useGst";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { selectInvoice, setInvoice } from "../../store/slices/toggleSlice";
+import { setInvoice } from "../../store/slices/toggleSlice";
+import { useTotalAmtWithoutGST } from "../../hooks/useTotalAmtWithoutGST";
+import { addAmount, selectInvoices } from "../../store/slices/invoiceSlice";
 
 type TPaymentForm = {
+  id: string;
   setToggle: (arg: boolean) => void;
 };
 
@@ -24,29 +27,43 @@ const validationSchema = Yup.object({
   isPaid: Yup.boolean().required("Payment status is required"),
 });
 
-const PaymentForm = ({ setToggle }: TPaymentForm) => {
-  const invoice = useAppSelector(selectInvoice);
-  console.log("Invoice:", invoice);
+const PaymentForm = ({ id, setToggle }: TPaymentForm) => {
+  const amt = useTotalAmtWithoutGST(id);
+  const invoices = useAppSelector(selectInvoices);
+  console.log(invoices);
+
   const dispatch = useAppDispatch();
   const [gst, setGst] = useState(0);
   const [finalCharge, setFinalCharge] = useState(0);
+
   const formik = useFormik({
     initialValues: {
       amountPaid: "",
-      totalAmount: "",
+      totalAmount: amt,
       isPaid: false,
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("Form values:", values);
-      console.log("Gst:", gst);
-      console.log("Final Charge:", finalCharge);
-      dispatch(setInvoice(true))
+      const valDispatch = {
+        amountPaid: Number(values.amountPaid),
+        isPaid: values.isPaid,
+        remaining: Number(values.totalAmount) - Number(values.amountPaid),
+        totalAmount: finalCharge,
+      };
+
+      dispatch(addAmount({ id, valDispatch }));
+      dispatch(setInvoice(true));
     },
   });
 
+  useEffect(() => {
+    const { gstAmount, finalAmount } = calculateGST(Number(amt));
+    setGst(gstAmount);
+    setFinalCharge(finalAmount);
+  }, [amt]);
+
   return (
-    <Box sx={{ maxWidth: 400, mx: "auto"}}>
+    <Box sx={{ maxWidth: 400, mx: "auto" }}>
       <form onSubmit={formik.handleSubmit}>
         <TextField
           fullWidth

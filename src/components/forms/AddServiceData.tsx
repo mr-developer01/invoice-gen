@@ -55,7 +55,6 @@ const AddServiceData = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
-        console.log("Submitted Data:", values);
         resetForm();
       }}
     >

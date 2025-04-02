@@ -86,7 +86,7 @@ export default function BasicTable() {
                   sx={{ cursor: "pointer", color: "primary.main" }}
                   onClick={() => dispatch(removeClient(row.id))}
                 >
-                  <DeleteOutlineIcon />
+                  <DeleteOutlineIcon sx={{ fontSize: 20 }} />
                 </Typography>
               </TableCell>
             </TableRow>

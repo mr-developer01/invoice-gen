@@ -16,7 +16,6 @@ const SearchUserByEmail = () => {
       initialValues={{ email: "" }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
-        console.log("Submitted Email:", values.email);
         dispatch(getClient(values.email))
         resetForm();
       }}

@@ -27,7 +27,6 @@ export const clientSlice = createSlice({
   initialState,
   reducers: {
     addClients: (state, action: PayloadAction<Client[] | []>) => {
-      // console.log(action.payload);
       state.clients = [...action.payload];
     },
     addClient: (state, action: PayloadAction<Client>) => {
@@ -36,7 +35,7 @@ export const clientSlice = createSlice({
       );
       if (!user) {
         state.message = true;
-        state.clients = [...state.clients, action.payload];
+        state.clients = [action.payload, ...state.clients];
       }
     },
 

@@ -7,7 +7,6 @@ import AddPayment from "../core/AddPayment";
 
 const Invoices = () => {
   const searchedClient = useAppSelector(selectClient);
-  console.log(searchedClient);
   return (
     <>
       <SearchUserByEmail />
@@ -31,8 +30,8 @@ const Invoices = () => {
             mt: 6,
           }}
         >
-          <AddService />
-          <AddPayment />
+          <AddService id={searchedClient[0]?.id} />
+          <AddPayment id={searchedClient[0]?.id} />
         </Stack>
       )}
     </>
