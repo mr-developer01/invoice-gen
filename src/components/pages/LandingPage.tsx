@@ -5,7 +5,7 @@ const LandingPage = () => {
   return (
     <>
       <ClientTable />
-      <Box mt={4}>
+      <Box mt={2}>
         <InvoiceTable />
       </Box>
     </>

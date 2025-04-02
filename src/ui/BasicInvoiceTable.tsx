@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import { useAppSelector } from "../store/hooks";
 import { selectInvoices } from "../store/slices/invoiceSlice";
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
 
 function createData(
   date: string,
@@ -24,7 +25,7 @@ export default function BasicInvoiceTable() {
   const invoices = useAppSelector(selectInvoices);
 
   const row = invoices
-    .filter((client) => client.date !== "")
+    .filter((client) => client.services?.length !== 0)
     .map((client) => {
       return createData(
         client?.date,
@@ -66,7 +67,7 @@ export default function BasicInvoiceTable() {
               R. Payment
             </TableCell>
             <TableCell padding="none" align="center">
-              Update
+              View
             </TableCell>
           </TableRow>
         </TableHead>
@@ -87,7 +88,7 @@ export default function BasicInvoiceTable() {
                   variant="body1"
                   sx={{ cursor: "pointer", color: "primary.main" }}
                 >
-                  update
+                  <FullscreenIcon sx={{fontSize: 20}}/>
                 </Typography>
               </TableCell>
             </TableRow>

@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setInvoice } from "../../store/slices/toggleSlice";
 import { useTotalAmtWithoutGST } from "../../hooks/useTotalAmtWithoutGST";
 import { addAmount, selectInvoices } from "../../store/slices/invoiceSlice";
+import { useNavigate } from "react-router";
 
 type TPaymentForm = {
   id: string;
@@ -28,6 +29,7 @@ const validationSchema = Yup.object({
 });
 
 const PaymentForm = ({ id, setToggle }: TPaymentForm) => {
+  const navigate = useNavigate()
   const amt = useTotalAmtWithoutGST(id);
   const invoices = useAppSelector(selectInvoices);
   console.log(invoices);
@@ -53,6 +55,8 @@ const PaymentForm = ({ id, setToggle }: TPaymentForm) => {
 
       dispatch(addAmount({ id, valDispatch }));
       dispatch(setInvoice(true));
+      setToggle(true)
+      navigate("/")
     },
   });
 

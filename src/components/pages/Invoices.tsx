@@ -25,7 +25,7 @@ const Invoices = () => {
           spacing={5}
           sx={{
             width: "100%",
-            alignItems: "start",
+            alignItems: "center",
             justifyContent: "center",
             mt: 6,
           }}

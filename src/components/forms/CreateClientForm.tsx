@@ -10,6 +10,8 @@ import {
 } from "../../store/slices/toggleSlice";
 import { addNewInvoice } from "../../store/slices/invoiceSlice";
 import { getDate } from "../../utils/getDate";
+import { uid } from 'uid';
+
 
 const validationSchema = Yup.object({
   id: Yup.string().required("ID is required"),
@@ -54,17 +56,10 @@ const CreateClientForm = () => {
 
         const invoice = [
           {
-            id: "inv4",
+            id: uid(4),
             clientId: values.id,
             date: getDate(),
-            services: [
-              // {
-              //   description: "",
-              //   rate: 0,
-              //   currency: "",
-              //   time: "",
-              // },
-            ],
+            services: [],
             payment: {
               isPaid: false,
               amountPaid: 0,

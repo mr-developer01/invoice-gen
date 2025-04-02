@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { selectClientModal, setClientModal } from '../store/slices/toggleSlice';
-import CreateClientForm from '../components/forms/CreateClientForm';
+// import CreateClientForm from '../components/forms/CreateClientForm';
 
 const style = {
   position: 'absolute',
@@ -17,7 +17,11 @@ const style = {
   p: 4,
 };
 
-export default function ClientModal() {
+type TClientModal = {
+  children: React.ReactNode
+}
+
+export default function ClientModal({children}: TClientModal) {
   const dispatch = useAppDispatch()
   const handleClose = () => dispatch(setClientModal(false));
   const open1 = useAppSelector(selectClientModal)
@@ -31,7 +35,8 @@ export default function ClientModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <CreateClientForm />
+          {/* <CreateClientForm /> */}
+          {children}
         </Box>
       </Modal>
     </>

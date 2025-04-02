@@ -5,6 +5,7 @@ import { useAppSelector } from "./store/hooks";
 import { selectTheme } from "./store/slices/toggleSlice";
 import ClientModal from "./ui/ClientModal";
 import { BrowserRouter } from "react-router";
+import CreateClientForm from "./components/forms/CreateClientForm";
 
 const App = () => {
   const appTheme = useAppSelector(selectTheme);
@@ -12,7 +13,9 @@ const App = () => {
     <ThemeProvider theme={theme(appTheme)}>
       <BrowserRouter>
         <CssBaseline />
-        <ClientModal />
+        <ClientModal>
+          <CreateClientForm />
+        </ClientModal>
         <Layout />
       </BrowserRouter>
     </ThemeProvider>
