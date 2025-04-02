@@ -49,9 +49,11 @@ const PaymentForm = ({ id, setToggle }: TPaymentForm) => {
       const valDispatch = {
         amountPaid: Number(values.amountPaid),
         isPaid: values.isPaid,
-        remaining: Number(values.totalAmount) - Number(values.amountPaid),
+        remaining: finalCharge - Number(values.amountPaid),
         totalAmount: finalCharge,
       };
+
+      console.log(valDispatch)
 
       dispatch(addAmount({ id, valDispatch }));
       dispatch(setInvoice(true));
