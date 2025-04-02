@@ -19,9 +19,11 @@ const style = {
 
 type TClientModal = {
   children: React.ReactNode
+  invId?: string
 }
 
-export default function ClientModal({children}: TClientModal) {
+export default function ClientModal({children, invId}: TClientModal) {
+  console.log(invId, "coming from modal...")
   const dispatch = useAppDispatch()
   const handleClose = () => dispatch(setClientModal(false));
   const open1 = useAppSelector(selectClientModal)
