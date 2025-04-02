@@ -1,12 +1,13 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { TextField, MenuItem, Button, Box, Stack } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { addNewService, selectInvoices } from "../../store/slices/invoiceSlice";
+import { useAppDispatch } from "../../store/hooks";
+import { addNewService } from "../../store/slices/invoiceSlice";
 
 type TProps = {
   id: string;
   setToggle: (arg: boolean) => void;
+  setShowServices: (arg: boolean) => void;
 };
 
 const validationSchema = Yup.object({
@@ -21,8 +22,7 @@ const validationSchema = Yup.object({
   time: Yup.date().typeError("Invalid date").required("Time is required"),
 });
 
-const AddServiceDetail = ({ id, setToggle }: TProps) => {
-  const invoices = useAppSelector(selectInvoices);
+const AddServiceDetail = ({ id, setToggle, setShowServices }: TProps) => {
   const dispatch = useAppDispatch();
   const formik = useFormik({
     initialValues: {
@@ -43,6 +43,7 @@ const AddServiceDetail = ({ id, setToggle }: TProps) => {
       ];
       dispatch(addNewService({ id, services }));
       setToggle(true);
+      setShowServices(true)
     },
   });
 

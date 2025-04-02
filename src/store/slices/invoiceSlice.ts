@@ -33,7 +33,7 @@ type Invoice = {
   services?: Service[];
 };
 
-const initialState: Invoice[] = [];
+const initialState: Invoice[] | [] = [];
 
 export const invoiceSlice = createSlice({
   name: "invoices",
