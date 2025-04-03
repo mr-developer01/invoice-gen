@@ -1,5 +1,3 @@
-import { Buffer } from "buffer";
-
 import {
   Page,
   Text,
@@ -10,15 +8,13 @@ import {
   View,
 } from "@react-pdf/renderer";
 
+import { Invoice } from "../../store/slices/invoiceSlice";
+
 // Create styles
 Font.register({
   family: "Oswald",
   src: "https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf",
 });
-
-type TClientModal = {
-  invId?: string;
-};
 
 const styles = StyleSheet.create({
   body: {
@@ -27,12 +23,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
   },
   title: {
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: "Oswald",
-    display: 'flex',
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    justifyContent: 'center'
+    display: "flex",
+    flexDirection: "row-reverse",
+    alignItems: "center",
+    justifyContent: "center",
   },
   author: {
     fontSize: 12,
@@ -40,15 +36,16 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   subtitle: {
-    fontSize: 18,
-    margin: 12,
+    fontSize: 10,
+    margin: 3,
     fontFamily: "Oswald",
   },
   text: {
-    margin: 12,
+    marginTop: 5,
     fontSize: 14,
     textAlign: "justify",
     fontFamily: "Times-Roman",
+    opacity: 0.6,
   },
   image: {
     marginVertical: 5,
@@ -57,7 +54,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 8,
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: "center",
     color: "grey",
   },
@@ -71,21 +68,32 @@ const styles = StyleSheet.create({
     color: "grey",
   },
   line: {
-    width: '100%',
+    width: "100%",
     backgroundColor: "black",
-    height: 1
-  }
+    height: 0.5,
+  },
+  table: {
+    marginTop: 2,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    fontSize: "10px",
+  },
 });
 
+type TnvoiceData = {
+  invoiceData: Invoice | undefined;
+};
+
 // Create Document Component
-const MyDocument = ({ invoiceData }) => {
-  console.log(invoiceData);
+const MyDocument = ({ invoiceData }: TnvoiceData) => {
+  console.log(invoiceData, "Data from pdf");
 
   return (
     <Document>
       <Page style={styles.body}>
         <Text style={styles.header} fixed>
-          ~ Invoice Registered at: {invoiceData?.date} ~
+          {`~ Invoice Registered at: ${invoiceData?.date} ~`}
         </Text>
         <View style={styles.title}>
           <Text style={styles.title}>User Invoice</Text>
@@ -96,17 +104,80 @@ const MyDocument = ({ invoiceData }) => {
         </View>
         <View style={styles.line}></View>
         <Text style={styles.subtitle}>
-          Capítulo I: Que trata de la condición y ejercicio del famoso hidalgo
-          D. Quijote de la Mancha
+          Invoice Id: <Text style={styles.text}>{invoiceData?.id}</Text>
         </Text>
-        <Text style={styles.text}>
-          En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha
-          mucho tiempo que vivía un hidalgo de los de lanza en astillero, adarga
-          antigua, rocín flaco y galgo corredor. Una olla de algo más vaca que
-          carnero, salpicón las más noches, duelos y quebrantos los sábados,
-          lentejas los viernes, algún palomino de añadidura los domingos,
-          consumían las tres partes de su hacienda.
+        <Text style={styles.subtitle}>
+          Client Id: <Text style={styles.text}>{invoiceData?.clientId}</Text>
         </Text>
+        <View style={styles.line}></View>
+        <Text style={styles.text}>Services Provided:</Text>
+        <View style={styles.table}>
+          <View>
+            <Text>Description</Text>
+            {invoiceData?.services?.map((data, index) => (
+              <Text style={{ marginTop: "8px", opacity: 0.6 }} key={index}>
+                {data.description}
+              </Text>
+            ))}
+          </View>
+          <View>
+            <Text>Rate</Text>
+            {invoiceData?.services?.map((data, index) => (
+              <Text style={{ marginTop: "8px", opacity: 0.6 }} key={index}>
+                {data.rate}
+              </Text>
+            ))}
+          </View>
+          <View>
+            <Text>Currency</Text>
+            {invoiceData?.services?.map((data, index) => (
+              <Text style={{ marginTop: "8px", opacity: 0.6, fontSize: '10px' }} key={index}>
+                {data.currency}
+              </Text>
+            ))}
+          </View>
+          <View>
+            <Text>Date Of Service</Text>
+            {invoiceData?.services?.map((data, index) => (
+              <Text style={{ marginTop: "8px", opacity: 0.6 }} key={index}>
+                {data.time}
+              </Text>
+            ))}
+          </View>
+        </View>
+        <Text style={styles.text}>Payment Details:</Text>
+        <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+          <Text style={{ marginTop: "2px", fontSize: "10px" }}>
+            Total Amount :
+          </Text>
+          <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
+            {invoiceData?.payment?.totalAmount}
+          </Text>
+        </View>
+        <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+          <Text style={{ marginTop: "2px", fontSize: "10px" }}>
+            Amount Paid :
+          </Text>
+          <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
+            {invoiceData?.payment?.amountPaid}
+          </Text>
+        </View>
+        <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+          <Text style={{ marginTop: "2px", fontSize: "10px" }}>
+            Remaining Balance :
+          </Text>
+          <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
+            {invoiceData?.payment?.remaining}
+          </Text>
+        </View>
+        <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+          <Text style={{ marginTop: "2px", fontSize: "10px" }}>
+            Payment Status :
+          </Text>
+          <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
+            {invoiceData?.payment?.isPaid ? 'All Cleared' : 'Pending' }
+          </Text>
+        </View>
         <Text
           style={styles.pageNumber}
           render={({ pageNumber, totalPages }) =>

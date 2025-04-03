@@ -25,7 +25,7 @@ type TAddPayment = {
   valDispatch: Payment;
 };
 
-type Invoice = {
+export type Invoice = {
   id?: string;
   clientId?: string;
   date?: string;
