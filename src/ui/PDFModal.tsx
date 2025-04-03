@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectPdfModal, setPdfModal } from "../store/slices/toggleSlice";
 import MyDocument from "../components/core/MyDocument";
 import { PDFViewer } from "@react-pdf/renderer";
+import { selectInvoices } from "../store/slices/invoiceSlice";
 
 const style = {
   position: "absolute",
@@ -14,7 +15,7 @@ const style = {
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   border: "1px solid #000",
-//   borderRadius: "10px",
+  //   borderRadius: "10px",
   boxShadow: 24,
   py: 0,
 };
@@ -24,10 +25,12 @@ type TClientModal = {
 };
 
 export default function PDFModal({ invId }: TClientModal) {
-  console.log(invId, "coming from modal...");
+  // console.log(invId, "coming from modal...");
   const dispatch = useAppDispatch();
   const handleClose = () => dispatch(setPdfModal(false));
   const open1 = useAppSelector(selectPdfModal);
+
+  const invoices = useAppSelector(selectInvoices);
 
   return (
     <>
@@ -38,8 +41,8 @@ export default function PDFModal({ invId }: TClientModal) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <PDFViewer style={{width: "100%", height: "100%"}}>
-            <MyDocument />
+          <PDFViewer style={{ width: "100%", height: "100%" }}>
+            <MyDocument invoiceData={invoices.find((inv) => inv.id === invId)} />
           </PDFViewer>
         </Box>
       </Modal>
