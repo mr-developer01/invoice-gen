@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     fontFamily: "Oswald",
   },
   text: {
-    marginTop: 5,
+    marginTop: 10,
     fontSize: 14,
     textAlign: "justify",
     fontFamily: "Times-Roman",
@@ -131,7 +131,10 @@ const MyDocument = ({ invoiceData }: TnvoiceData) => {
           <View>
             <Text>Currency</Text>
             {invoiceData?.services?.map((data, index) => (
-              <Text style={{ marginTop: "8px", opacity: 0.6, fontSize: '10px' }} key={index}>
+              <Text
+                style={{ marginTop: "8px", opacity: 0.6, fontSize: "10px" }}
+                key={index}
+              >
                 {data.currency}
               </Text>
             ))}
@@ -145,38 +148,69 @@ const MyDocument = ({ invoiceData }: TnvoiceData) => {
             ))}
           </View>
         </View>
-        <Text style={styles.text}>Payment Details:</Text>
-        <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
-          <Text style={{ marginTop: "2px", fontSize: "10px" }}>
-            Total Amount :
-          </Text>
-          <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
-            {invoiceData?.payment?.totalAmount}
-          </Text>
+
+        <View style={{ margin: "10px 0px" }}>
+          <Text style={styles.text}>Payment Details:</Text>
+          <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+            <Text style={{ marginTop: "2px", fontSize: "10px" }}>
+              Total Amount :
+            </Text>
+            <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
+              {invoiceData?.payment?.totalAmount}
+            </Text>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+            <Text style={{ marginTop: "2px", fontSize: "10px" }}>
+              Amount Paid :
+            </Text>
+            <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
+              {invoiceData?.payment?.amountPaid}
+            </Text>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+            <Text style={{ marginTop: "2px", fontSize: "10px" }}>
+              Remaining Balance :
+            </Text>
+            <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
+              {invoiceData?.payment?.remaining}
+            </Text>
+          </View>
+          <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
+            <Text style={{ marginTop: "2px", fontSize: "10px" }}>
+              Payment Status :
+            </Text>
+            <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
+              {invoiceData?.payment?.isPaid ? "All Cleared" : "Pending"}
+            </Text>
+          </View>
         </View>
-        <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
-          <Text style={{ marginTop: "2px", fontSize: "10px" }}>
-            Amount Paid :
-          </Text>
-          <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
-            {invoiceData?.payment?.amountPaid}
-          </Text>
+        <View style={styles.line}></View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            margin: "10px 0px",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: "13px" }}>Note:</Text>{" "}
+          {invoiceData?.payment?.remaining === 0 ? (
+            <Text style={{ fontSize: "10px" }}>
+              Thank you for your business! We will meet again.
+            </Text>
+          ) : (
+            <Text style={{ fontSize: "10px" }}>
+              Please complete the remaining payment of $
+              {invoiceData?.payment?.remaining} at the earliest convenience.
+              Thank you for your business!
+            </Text>
+          )}
         </View>
-        <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
-          <Text style={{ marginTop: "2px", fontSize: "10px" }}>
-            Remaining Balance :
-          </Text>
-          <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
-            {invoiceData?.payment?.remaining}
-          </Text>
-        </View>
-        <View style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
-          <Text style={{ marginTop: "2px", fontSize: "10px" }}>
-            Payment Status :
-          </Text>
-          <Text style={{ marginTop: "2px", opacity: 0.6, fontSize: "10px" }}>
-            {invoiceData?.payment?.isPaid ? 'All Cleared' : 'Pending' }
-          </Text>
+        <View style={styles.line}></View>
+
+        <View style={{marginTop: '20px'}}>
+          <Text style={{fontSize: '13px'}}>Authorized Signature: </Text>
+          <Text style={{fontSize: '10px', color: '#C5600D'}}>Appstech ERP Solution...</Text>
         </View>
         <Text
           style={styles.pageNumber}

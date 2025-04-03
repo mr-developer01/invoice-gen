@@ -1,7 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import { useAppDispatch } from "../../store/hooks";
 import { setClientModal, setTheme } from "../../store/slices/toggleSlice";
-import { Link } from "react-router";
+import { Link } from "react-router";  
 
 const BasicSidebar = () => {
   const dispatch = useAppDispatch();
@@ -12,9 +12,9 @@ const BasicSidebar = () => {
           flex: 1,
           bgcolor: "background.default",
           justifyContent: "space-between",
-          py: {xs:1, md: 4},
+          py: { xs: 1, md: 4 },
           px: 2,
-          alignItems: "center"
+          alignItems: "center",
         }}
         direction={{ xs: "row", md: "column" }}
       >

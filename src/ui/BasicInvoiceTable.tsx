@@ -88,8 +88,8 @@ export default function BasicInvoiceTable() {
                   {row.invoiceId}
                 </TableCell>
                 <TableCell align="center">{row.services}</TableCell>
-                <TableCell align="center">{row.payment}</TableCell>
-                <TableCell align="center">{row.toatalPay}</TableCell>
+                <TableCell align="center">$ {row.payment}</TableCell>
+                <TableCell align="center">$ {row.toatalPay}</TableCell>
                 <TableCell align="center">
                   <Typography
                     variant="body1"
