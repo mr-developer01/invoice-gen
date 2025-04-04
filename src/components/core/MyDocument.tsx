@@ -87,7 +87,6 @@ type TnvoiceData = {
 
 // Create Document Component
 const MyDocument = ({ invoiceData }: TnvoiceData) => {
-  console.log(invoiceData, "Data from pdf");
 
   return (
     <Document>

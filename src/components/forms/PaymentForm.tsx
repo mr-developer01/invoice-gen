@@ -11,10 +11,10 @@ import {
 } from "@mui/material";
 import { calculateGST } from "../../hooks/useGst";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
 import { setInvoice } from "../../store/slices/toggleSlice";
 import { useTotalAmtWithoutGST } from "../../hooks/useTotalAmtWithoutGST";
-import { addAmount, selectInvoices } from "../../store/slices/invoiceSlice";
+import { addAmount } from "../../store/slices/invoiceSlice";
 import { useNavigate } from "react-router";
 
 type TPaymentForm = {
@@ -31,8 +31,6 @@ const validationSchema = Yup.object({
 const PaymentForm = ({ id, setToggle }: TPaymentForm) => {
   const navigate = useNavigate()
   const amt = useTotalAmtWithoutGST(id);
-  const invoices = useAppSelector(selectInvoices);
-  console.log(invoices);
 
   const dispatch = useAppDispatch();
   const [gst, setGst] = useState(0);
@@ -52,8 +50,6 @@ const PaymentForm = ({ id, setToggle }: TPaymentForm) => {
         remaining: finalCharge - Number(values.amountPaid),
         totalAmount: finalCharge,
       };
-
-      console.log(valDispatch)
 
       dispatch(addAmount({ id, valDispatch }));
       dispatch(setInvoice(true));

@@ -25,7 +25,6 @@ type TClientModal = {
 };
 
 export default function PDFModal({ invId }: TClientModal) {
-  // console.log(invId, "coming from modal...");
   const dispatch = useAppDispatch();
   const handleClose = () => dispatch(setPdfModal(false));
   const open1 = useAppSelector(selectPdfModal);

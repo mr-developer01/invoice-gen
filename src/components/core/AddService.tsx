@@ -21,7 +21,6 @@ const AddService = ({ id }: Tid) => {
   const invoices = useAppSelector(selectInvoices);
   const [toggle, setToggle] = useState(true);
   const [services, setServices] = useState<"" | TService[]>("");
-  console.log(services, "services");
   const [showServices, setShowServices] = useState(true);
 
   useEffect(() => {

@@ -1,10 +1,16 @@
 import { Button, Stack } from "@mui/material";
-import { useAppDispatch } from "../../store/hooks";
-import { setClientModal, setTheme } from "../../store/slices/toggleSlice";
-import { Link } from "react-router";  
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  selectTheme,
+  setClientModal,
+  setTheme,
+} from "../../store/slices/toggleSlice";
+import { Link } from "react-router";
+import { Moon, Sun } from "lucide-react";
 
 const BasicSidebar = () => {
   const dispatch = useAppDispatch();
+  const theme = useAppSelector(selectTheme);
   return (
     <>
       <Stack
@@ -29,10 +35,12 @@ const BasicSidebar = () => {
             Create Invoice
           </Button>
         </Stack>
-        <Stack>
-          <Button variant="outlined" onClick={() => dispatch(setTheme())}>
-            Change Theme
-          </Button>
+        <Stack sx={{ cursor: "pointer" }}>
+          {theme === "light" ? (
+            <Moon onClick={() => dispatch(setTheme())} />
+          ) : (
+            <Sun onClick={() => dispatch(setTheme())} />
+          )}
         </Stack>
       </Stack>
     </>
