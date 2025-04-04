@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import Navigate from "./routes";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import BasicSidebar from "../core/BasicSidebar";
 import SimpleSnackbar from "../../ui/SimpleSnackbar";
 import { useAppDispatch } from "../../store/hooks";
@@ -34,25 +34,27 @@ const Layout = () => {
           }}
         >
           <Stack
+          direction={"row"}
             sx={{
               flex: 1,
-              alignItems: "center",
               justifyContent: "center",
+              cursor: "pointer",
               py: 2,
+              gap: 1.2
             }}
+            onClick={() => navigate("/")}
           >
             <Box
               component="img"
               sx={{
-                height: 40,
-                width: 40,
-                borderRadius: "50%",
-                cursor: "pointer",
+                height: 30,
+                width: 30,
+                borderRadius: "10px",
               }}
               alt="The house from the offer."
-              src="https://www.pymnts.com/wp-content/uploads/2015/11/invoice.jpg"
-              onClick={() => navigate("/")}
+              src="/LumberTrack.png"
             />
+            <Typography variant="h4">Lumber<Typography variant="overline" color="#026D8D">Track</Typography></Typography>
           </Stack>
           <Box sx={{ flex: 14, px: 4, py: 2 }}>
             <Navigate />
