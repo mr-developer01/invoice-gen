@@ -35,7 +35,7 @@ const BasicSidebar = () => {
             Create Invoice
           </Button>
         </Stack>
-        <Stack sx={{ cursor: "pointer" }}>
+        <Stack sx={{ cursor: "pointer", mr: {xs: '20px', sm: '30px', md: '0px'} }}>
           {theme === "light" ? (
             <Moon onClick={() => dispatch(setTheme())} />
           ) : (

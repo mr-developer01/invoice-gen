@@ -7,8 +7,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { removeClient, selectClients } from "../store/slices/updateClientSlice";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { selectClients } from "../store/slices/updateClientSlice";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import ConfirmModal from "./ConfirmModal";
+import { setRemoveClientModal } from "../store/slices/toggleSlice";
+import { useState } from "react";
 
 function createData(
   name: string,
@@ -21,8 +24,9 @@ function createData(
 }
 
 export default function BasicTable() {
+  const [clientId, SetClientId] = useState('')
   const clients = useAppSelector(selectClients);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const row = clients.map((client) => {
     return createData(
@@ -46,6 +50,7 @@ export default function BasicTable() {
         "scrollbar-width": "none",
       }}
     >
+      <ConfirmModal clientId={clientId} />
       <Table
         sx={{ minWidth: 650, position: "relative" }}
         stickyHeader
@@ -84,7 +89,10 @@ export default function BasicTable() {
                 <Typography
                   variant="body1"
                   sx={{ cursor: "pointer", color: "primary.main" }}
-                  onClick={() => dispatch(removeClient(row.id))}
+                  onClick={() => {
+                    dispatch(setRemoveClientModal(true))
+                    SetClientId(row.id)
+                  }}
                 >
                   <DeleteOutlineIcon sx={{ fontSize: 20 }} />
                 </Typography>

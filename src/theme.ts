@@ -140,11 +140,17 @@ export const theme = (mode: "light" | "dark") =>
               padding: "8px 16px",
               transition: "all 0.3s ease",
               fontWeight: 500,
+              "@media (min-width:0px)": {
+                padding: "6px 8px",
+                fontSize: "14px"
+              },
               "@media (min-width:600px)": {
-                padding: "10px 20px",
+                padding: "8px 15px",
+                fontSize: "12px"
               },
               "@media (min-width:900px)": {
-                padding: "8px 12px",
+                padding: "8px 10px",
+                fontSize: "15px"
               },
             },
             containedPrimary: {

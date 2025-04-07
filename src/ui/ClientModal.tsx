@@ -22,8 +22,7 @@ type TClientModal = {
   invId?: string
 }
 
-export default function ClientModal({children, invId}: TClientModal) {
-  console.log(invId, "coming from modal...")
+export default function ClientModal({children}: TClientModal) {
   const dispatch = useAppDispatch()
   const handleClose = () => dispatch(setClientModal(false));
   const open1 = useAppSelector(selectClientModal)
