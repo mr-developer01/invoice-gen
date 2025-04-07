@@ -87,7 +87,6 @@ type TnvoiceData = {
 
 // Create Document Component
 const MyDocument = ({ invoiceData }: TnvoiceData) => {
-
   return (
     <Document>
       <Page style={styles.body}>
@@ -195,7 +194,7 @@ const MyDocument = ({ invoiceData }: TnvoiceData) => {
           <Text style={{ fontSize: "13px" }}>Note:</Text>{" "}
           {invoiceData?.payment?.remaining === 0 ? (
             <Text style={{ fontSize: "10px" }}>
-              Thank you for your business! We will meet again.
+              Thank you for your business!
             </Text>
           ) : (
             <Text style={{ fontSize: "10px" }}>
@@ -207,9 +206,11 @@ const MyDocument = ({ invoiceData }: TnvoiceData) => {
         </View>
         <View style={styles.line}></View>
 
-        <View style={{marginTop: '20px'}}>
-          <Text style={{fontSize: '13px'}}>Authorized Signature: </Text>
-          <Text style={{fontSize: '10px', color: '#C5600D'}}>Appstech ERP Solution...</Text>
+        <View style={{ marginTop: "20px" }}>
+          <Text style={{ fontSize: "13px" }}>Authorized Signature: </Text>
+          <Text style={{ fontSize: "10px", color: "#C5600D" }}>
+            Lumber<Text style={{color: "blue"}}>Track</Text>
+          </Text>
         </View>
         <Text
           style={styles.pageNumber}

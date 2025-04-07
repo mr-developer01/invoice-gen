@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Test from "../components/core/Test";
-// import BasicSidebar from "../components/core/BasicSidebar";
+import BasicSidebar from "../components/core/BasicSidebar";
 
 
 test("BasicSidebar is in  document", () => {
@@ -18,9 +18,9 @@ test("BasicSidebar is in  document", () => {
   expect(button).toBeInTheDocument()
 });
 
-// test("BasicSidebar is in  document", () => {
-//   render(<BasicSidebar />);
+test("BasicSidebar is in  document", () => {
+  render(<BasicSidebar />);
 
-//   const txt = screen.getByText("Change Theme");
-//   expect(txt).toBeInTheDocument()
-// });
+  const txt = screen.getByText("Add Client");
+  expect(txt).toBeInTheDocument()
+});
