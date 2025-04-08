@@ -37,7 +37,7 @@ const AllServices = ({ services, setShowServices }: TAllServices) => {
           <Typography variant="caption">{service.currency} {service.rate}</Typography>
         </Stack>
       ))}
-      <Button variant="outlined" onClick={() => setShowServices(false)}>
+      <Button variant="contained" onClick={() => setShowServices(false)}>
         Add More
       </Button>
     </Stack>

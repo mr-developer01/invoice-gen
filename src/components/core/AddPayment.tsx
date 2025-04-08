@@ -2,6 +2,8 @@ import { Stack, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 import PaymentForm from "../forms/PaymentForm";
+import { selectTheme } from "../../store/slices/toggleSlice";
+import { useAppSelector } from "../../store/hooks";
 
 type TId = {
   id: string
@@ -9,6 +11,7 @@ type TId = {
 
 const AddPayment = ({id}: TId) => {
   const [toggle, setToggle] = useState(true);
+  const theme = useAppSelector(selectTheme);
   return (
     <Stack sx={{ alignItems: "center" }}>
       <Typography>Add Payment</Typography>
@@ -17,7 +20,7 @@ const AddPayment = ({id}: TId) => {
           sx={{
             width: { xs: 200, md: 400 },
             height: 200,
-            border: "1px dashed white",
+            border: theme === 'light' ? "1px dashed black" : "1px dashed white",
             borderRadius: "10px",
             alignItems: "center",
             justifyContent: "center",

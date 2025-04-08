@@ -5,6 +5,7 @@ import AddServiceDetail from "../forms/AddServiceDetail";
 import AllServices from "./AllServices";
 import { useAppSelector } from "../../store/hooks";
 import { selectInvoices } from "../../store/slices/invoiceSlice";
+import { selectTheme } from "../../store/slices/toggleSlice";
 
 type Tid = {
   id: string;
@@ -19,6 +20,7 @@ type TService = {
 
 const AddService = ({ id }: Tid) => {
   const invoices = useAppSelector(selectInvoices);
+  const theme = useAppSelector(selectTheme);
   const [toggle, setToggle] = useState(true);
   const [services, setServices] = useState<"" | TService[]>("");
   const [showServices, setShowServices] = useState(true);
@@ -42,7 +44,7 @@ const AddService = ({ id }: Tid) => {
               sx={{
                 width: { xs: 200, md: 400 },
                 height: 200,
-                border: "1px dashed white",
+                border: theme === 'light' ? "1px dashed black" : "1px dashed white",
                 borderRadius: "10px",
                 alignItems: "center",
                 justifyContent: "center",
