@@ -12,11 +12,11 @@ export const theme = (mode: "light" | "dark") =>
           main: mode === "light" ? "#BE5FD6" : "#E211E9",
         },
         background: {
-          default: mode === "light" ? "#5C7285" : "#121212",
-          paper: mode === "light" ? "#818C78" : "#1e1e1e",
+          default: mode === "light" ? "#DBDBDB" : "#121212",
+          paper: mode === "light" ? "#FFFFFF" : "#1e1e1e",
         },
         text: {
-          primary: mode === "light" ? "#ffffff" : "#fff",
+          primary: mode === "light" ? "#000000" : "#fff",
           secondary: mode === "light" ? "#666666" : "#e0e0e0",
         },
       },
@@ -154,7 +154,7 @@ export const theme = (mode: "light" | "dark") =>
               },
             },
             containedPrimary: {
-              backgroundColor: mode === "light" ? "#e27396" : "#811212",
+              backgroundColor: mode === "light" ? "#3A3A3A" : "#811212",
               "&:hover": {
                 backgroundColor: mode === "light" ? "#b388eb" : "#6A0F0F",
               },

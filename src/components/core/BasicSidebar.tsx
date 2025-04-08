@@ -11,6 +11,7 @@ import { Moon, Sun } from "lucide-react";
 const BasicSidebar = () => {
   const dispatch = useAppDispatch();
   const theme = useAppSelector(selectTheme);
+  console.log(theme)
   return (
     <>
       <Stack
