@@ -6,43 +6,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { selectInvoices } from "../store/slices/invoiceSlice";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
-import { useState } from "react";
 import { setPdfModal } from "../store/slices/toggleSlice";
 import PDFModal from "./PDFModal";
-
-function createData(
-  date: string,
-  clientId: string,
-  invoiceId: string,
-  payment: string,
-  toatalPay: string,
-  services: string
-) {
-  return { date, clientId, invoiceId, payment, toatalPay, services };
-}
+import { useInvoiceTable } from "../hooks/useInvoiceTable";
 
 export default function BasicInvoiceTable() {
-  const invoices = useAppSelector(selectInvoices);
-  const [invId, setInvId] = useState("");
-  const dispatch = useAppDispatch();
-
-  const row = invoices
-    .filter((client) => client.services?.length !== 0)
-    .map((client) => {
-      return createData(
-        client?.date,
-        client?.clientId,
-        client?.id,
-        client?.payment?.totalAmount,
-        client?.payment?.remaining,
-        client?.services[0]?.description
-      );
-    });
-
-  const rows = [...row];
+  const { invId, setInvId, dispatch, rows} = useInvoiceTable()
 
   return (
     <>
