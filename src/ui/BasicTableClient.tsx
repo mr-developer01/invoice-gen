@@ -6,8 +6,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import { useAppSelector } from "../store/hooks";
-import { selectClients } from "../store/slices/clientSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { selectClients } from "../store/slices/updateClientSlice";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import ConfirmModal from "./ConfirmModal";
+import { setRemoveClientModal } from "../store/slices/toggleSlice";
+import { useState } from "react";
 
 function createData(
   name: string,
@@ -20,7 +24,9 @@ function createData(
 }
 
 export default function BasicTable() {
+  const [clientId, SetClientId] = useState('')
   const clients = useAppSelector(selectClients);
+  const dispatch = useAppDispatch();
 
   const row = clients.map((client) => {
     return createData(
@@ -44,6 +50,7 @@ export default function BasicTable() {
         "scrollbar-width": "none",
       }}
     >
+      <ConfirmModal clientId={clientId} />
       <Table
         sx={{ minWidth: 650, position: "relative" }}
         stickyHeader
@@ -62,7 +69,7 @@ export default function BasicTable() {
               Address
             </TableCell>
             <TableCell padding="none" align="center">
-              More Detail
+              Remove
             </TableCell>
           </TableRow>
         </TableHead>
@@ -82,8 +89,12 @@ export default function BasicTable() {
                 <Typography
                   variant="body1"
                   sx={{ cursor: "pointer", color: "primary.main" }}
+                  onClick={() => {
+                    dispatch(setRemoveClientModal(true))
+                    SetClientId(row.id)
+                  }}
                 >
-                  View
+                  <DeleteOutlineIcon sx={{ fontSize: 20 }} />
                 </Typography>
               </TableCell>
             </TableRow>

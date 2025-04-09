@@ -12,11 +12,11 @@ export const theme = (mode: "light" | "dark") =>
           main: mode === "light" ? "#BE5FD6" : "#E211E9",
         },
         background: {
-          default: mode === "light" ? "#5C7285" : "#121212",
-          paper: mode === "light" ? "#818C78" : "#1e1e1e",
+          default: mode === "light" ? "#DBDBDB" : "#121212",
+          paper: mode === "light" ? "#FFFFFF" : "#1e1e1e",
         },
         text: {
-          primary: mode === "light" ? "#ffffff" : "#fff",
+          primary: mode === "light" ? "#000000" : "#fff",
           secondary: mode === "light" ? "#666666" : "#e0e0e0",
         },
       },
@@ -140,15 +140,21 @@ export const theme = (mode: "light" | "dark") =>
               padding: "8px 16px",
               transition: "all 0.3s ease",
               fontWeight: 500,
+              "@media (min-width:0px)": {
+                padding: "6px 8px",
+                fontSize: "14px"
+              },
               "@media (min-width:600px)": {
-                padding: "10px 20px",
+                padding: "8px 15px",
+                fontSize: "12px"
               },
               "@media (min-width:900px)": {
-                padding: "8px 12px",
+                padding: "8px 10px",
+                fontSize: "15px"
               },
             },
             containedPrimary: {
-              backgroundColor: mode === "light" ? "#e27396" : "#811212",
+              backgroundColor: mode === "light" ? "#3A3A3A" : "#811212",
               "&:hover": {
                 backgroundColor: mode === "light" ? "#b388eb" : "#6A0F0F",
               },

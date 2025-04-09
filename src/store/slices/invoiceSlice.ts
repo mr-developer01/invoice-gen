@@ -5,7 +5,12 @@ type Service = {
   description: string;
   rate: number;
   time: string;
-  currency: "$" | "₹";
+  currency: string;
+};
+
+type TPayLoad = {
+  id: string;
+  services: Service[];
 };
 
 type Payment = {
@@ -14,26 +19,54 @@ type Payment = {
   totalAmount: number;
   remaining: number;
 };
-type Invoice = {
+
+type TAddPayment = {
+  id: string;
+  valDispatch: Payment;
+};
+
+export type Invoice = {
   id?: string;
   clientId?: string;
   date?: string;
-  services?: Service[];
   payment?: Payment;
+  services?: Service[];
 };
 
-const initialState: Invoice[] = [];
+const initialState: Invoice[] | [] = [];
 
 export const invoiceSlice = createSlice({
   name: "invoices",
   initialState,
   reducers: {
-    addInvoices: (state, action: PayloadAction<Invoice[]>) =>
-      (state = [...action.payload]),
+    addInvoices: (state, action: PayloadAction<Invoice[]>) => {
+      return (state = [...action.payload]);
+    },
+
+    addNewInvoice: (state, action: PayloadAction<Invoice[]>) => {
+      return (state = [...state, ...action.payload]);
+    },
+
+    addNewService: (state, action: PayloadAction<TPayLoad>) => {
+      state.map((invoice) => {
+        if (invoice.clientId === action.payload.id) {
+          invoice.services = [...invoice.services, ...action.payload.services];
+        }
+      });
+    },
+
+    addAmount: (state, action: PayloadAction<TAddPayment>) => {
+      state.map((invoice) => {
+        if (invoice.clientId === action.payload.id) {
+          invoice.payment = action.payload.valDispatch;
+        }
+      });
+    },
   },
 });
 
-export const { addInvoices } = invoiceSlice.actions;
+export const { addInvoices, addNewService, addNewInvoice, addAmount } =
+  invoiceSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectInvoices = (state: RootState) => state.invoices;
