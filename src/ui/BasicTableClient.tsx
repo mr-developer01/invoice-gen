@@ -6,39 +6,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { selectClients } from "../store/slices/updateClientSlice";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ConfirmModal from "./ConfirmModal";
 import { setRemoveClientModal } from "../store/slices/toggleSlice";
-import { useState } from "react";
-
-function createData(
-  name: string,
-  email: string,
-  phone: string,
-  address: string,
-  id: string
-) {
-  return { name, email, phone, address, id };
-}
+import { useClientTable } from "../hooks/useClientTable";
 
 export default function BasicTable() {
-  const [clientId, SetClientId] = useState('')
-  const clients = useAppSelector(selectClients);
-  const dispatch = useAppDispatch();
-
-  const row = clients.map((client) => {
-    return createData(
-      client.name,
-      client.email,
-      client.phone,
-      client.address,
-      client.id
-    );
-  });
-
-  const rows = [...row];
+  const {clientId, SetClientId, dispatch, rows} = useClientTable()
 
   return (
     <TableContainer
